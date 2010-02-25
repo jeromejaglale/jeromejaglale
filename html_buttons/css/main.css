@@ -38,6 +38,7 @@ p {
 	background: #A9014B url(button_overlay.png) repeat-x scroll 0 0;
 	border-style: none;
 	text-align: center;
+	overflow: visible;
 }
 
 .button:hover,.button:focus {
