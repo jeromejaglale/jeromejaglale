@@ -3,12 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Color Tool</title>	
+	<title>Online calculator of color difference and color brightness difference</title>	
 </head>
 
 <body>
 	
-<h1>Color Tool</h1>
+<h1>Online calculator of color difference and color brightness difference</h1>
+<p>
+	<a href="http://maestric.com/doc/color_brightness_difference_calculator">More info</a>
+</p>
 <hr />
 
 <form action="" method="post" accept-charset="utf-8">
@@ -72,18 +75,7 @@
 <hr />
 
 <h2>Sample</h2>
-<p style="padding: 30px; background-color: #<?=$html1?>; color: #<?=$html2?>;font-size: 36px;">This is just an example ;)</p>
-
-
-<h2>Reference</h2>
-<p>Color brightness is determined by the following formula:<br />
-((Red value X 299) + (Green value X 587) + (Blue value X 114)) / 1000
-</p>
-<p>Color difference is determined by the following formula:<br />
-(maximum (Red value 1, Red value 2) - minimum (Red value 1, Red value 2)) + (maximum (Green value 1, Green value 2) - minimum (Green value 1, Green value 2)) + (maximum (Blue value 1, Blue value 2) - minimum (Blue value 1, Blue value 2))
-</p>
-<p>Source: <a href="http://www.w3.org/TR/AERT">W3C - Techniques For Accessibility Evaluation And Repair Tools</a>
-</p>
+<p style="padding: 30px; background-color: #<?=$html1?>; color: #<?=$html2?>;font-size: 36px;">This is a sample</p>
 
 </body>
 </html>
