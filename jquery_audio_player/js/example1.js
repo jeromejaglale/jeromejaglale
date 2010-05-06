@@ -13,7 +13,12 @@ $(document).ready(function() {
 				}
 			}
 		);
-
+		
+		// prevent link from working
+		$(this).click(function(){
+			return false
+		});
+		
 	});
 
 });          
