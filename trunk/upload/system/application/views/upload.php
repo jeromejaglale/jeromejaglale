@@ -53,16 +53,10 @@
 	</script>
 </head>
 <body>
-<div id="header">
-	<h1 id="logo"><a href="../">SWFUpload</a></h1>
-	<div id="version">v2.2.0</div>
-</div>
 
 <div id="content">
-	<h2>Simple Demo</h2>
-	<form id="form1" action="index.php" method="post" enctype="multipart/form-data">
-		<p>This page demonstrates a simple usage of SWFUpload.  It uses the Queue Plugin to simplify uploading or cancelling all queued files.</p>
-
+	<h2>Upload a file</h2>
+	<form id="form1" action="" method="post" enctype="multipart/form-data">
 			<div class="fieldset flash" id="fsUploadProgress">
 			<span class="legend">Upload Queue</span>
 			</div>
