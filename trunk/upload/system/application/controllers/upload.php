@@ -61,6 +61,7 @@ class Upload extends Controller {
 
 		session_start();
 
+/*
 	// Check post_max_size (http://us3.php.net/manual/en/features.file-upload.php#73762)
 		$POST_MAX_SIZE = ini_get('post_max_size');
 		$unit = strtoupper(substr($POST_MAX_SIZE, -1));
@@ -71,6 +72,7 @@ class Upload extends Controller {
 			echo "POST exceeded maximum allowed size.";
 			exit(0);
 		}
+*/
 
 	// Settings
 		$save_path = getcwd() . "/files/";				// The path were we will save the file (getcwd() may not be reliable and should be tested in your environment)

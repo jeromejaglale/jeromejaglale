@@ -15,10 +15,10 @@
 				flash_url : "<?=site_url('js/swfupload/swfupload.swf')?>",
 				upload_url: "<?=site_url('upload/upload_file')?>",
 				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
-				file_size_limit : "100 MB",
+				file_size_limit : "500 MB",
 				file_types : "*.*",
 				file_types_description : "All Files",
-				file_upload_limit : 100,
+				file_upload_limit : 500,
 				file_queue_limit : 0,
 				custom_settings : {
 					progressTarget : "fsUploadProgress",
