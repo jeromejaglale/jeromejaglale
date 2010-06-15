@@ -1,0 +1,16 @@
+body {
+	background-color: silver;
+}
+
+.container {
+	background-color: white;
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.test1 {
+	width: 800px;
+	height: 600px;
+	background: red url(../images/v.jpg) no-repeat 50% 100%;
+}
