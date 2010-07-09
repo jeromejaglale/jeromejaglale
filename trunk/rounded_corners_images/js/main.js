@@ -32,15 +32,15 @@ $('img.rounded').one('load',function () {
 	// IE6 fix (when image height or width is odd)
 	if ($.browser.msie && $.browser.version == '6.0')
 	{
-	    if(img_width % 2 != 0)
-	    {
-	        wrapper.addClass('ie6_width')
-	    }
-	    if(img_height % 2 != 0)
-	    {
-        	wrapper.addClass('ie6_height')	        
-	    }
-    }
+		if(img_width % 2 != 0)
+		{
+			wrapper.addClass('ie6_width')
+		}
+		if(img_height % 2 != 0)
+		{
+			wrapper.addClass('ie6_height')			
+		}
+	}
 
 	// wrap image
 	img.wrap(wrapper);
