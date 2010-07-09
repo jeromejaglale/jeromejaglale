@@ -39,6 +39,21 @@
 	background: url(img/rounded_corners/bl.gif) no-repeat left bottom;
 }
 
+/* IE6 fix */
+.ie6_width .tr {
+    right: -1px;
+}
 
+.ie6_width .br {
+    right: -1px;
+}
+
+.ie6_height .br {
+    bottom: -1px;
+}
+
+.ie6_height .bl {
+    bottom: -1px;
+}
 
 /* @end */

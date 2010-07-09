@@ -2,11 +2,13 @@ $(document).ready(function() {
 
 $("img.rounded").each( function () {
 	var img = $(this);
+	var img_width = img.width();
+	var img_height = img.height();
 	
 	// build wrapper
 	var wrapper = $('<div class="rounded_wrapper"></div>');
-	wrapper.width(img.width());
-	wrapper.height(img.height());
+	wrapper.width(img_width);
+	wrapper.height(img_height);
 	
 	// move CSS properties from img to wrapper
 	wrapper.css('float', img.css('float'));
@@ -26,6 +28,19 @@ $("img.rounded").each( function () {
 
 	wrapper.css('display', 'block');
 	img.css('display', 'block')
+
+	// IE6 fix (when image height or width is odd)
+	if ($.browser.msie && $.browser.version == '6.0')
+	{
+	    if(img_width % 2 != 0)
+	    {
+	        wrapper.addClass('ie6_width')
+	    }
+	    if(img_height % 2 != 0)
+	    {
+        	wrapper.addClass('ie6_height')	        
+	    }
+    }
 
 	// wrap image
 	img.wrap(wrapper);
