@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-$("img.rounded").load( function () {
+$("img.rounded").each( function () {
 	var img = $(this);
 	
 	// build wrapper
