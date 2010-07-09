@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-$("img.rounded").each( function () {
+$('img.rounded').one('load',function () {
 	var img = $(this);
 	var img_width = img.width();
 	var img_height = img.height();
@@ -50,7 +50,8 @@ $("img.rounded").each( function () {
 	img.after('<div class="tr"></div>');
 	img.after('<div class="bl"></div>');
 	img.after('<div class="br"></div>');
+}).each(function(){
+	if(this.complete) $(this).trigger("load");
 });
-
 	
 });
