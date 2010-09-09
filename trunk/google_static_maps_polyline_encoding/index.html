@@ -81,7 +81,10 @@
 
 		// display static map using encoded polyline
 		var img_src = "http://maps.google.com/maps/api/staticmap?size=600x300&path=fillcolor:0xAA000033|color:0xFFFFFF00|enc:" + encoded + "&sensor=false";
-		document.getElementById("static_map").innerHTML = '<img src="' + img_src + '"/>';
+
+		var result_html = '<pre>' + img_src + '</pre>';
+		result_html += '<img src="' + img_src + '"/>';
+		document.getElementById("static_map").innerHTML = result_html;
   }
 </script>
 </head>
