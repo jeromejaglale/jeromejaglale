@@ -1,0 +1,36 @@
+#slider {
+	width: 341px;
+}
+
+.wave {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 341px;
+	height: 100px;
+	background-image: url(wave.png);
+	z-index: 90;
+}
+
+.nivo-controlNav {
+	position:absolute;
+	background-image: url(wave.png);
+	padding-top: 10px;
+	padding-left: 10px;
+	width: 331px;
+	height: 90px;
+	z-index: 100;
+}
+.nivo-controlNav a {
+	display:block;
+	width:10px;
+	height:10px;
+	background:url(bullets.png) no-repeat;
+	text-indent:-9999px;
+	border:0;
+	margin-right:3px;
+	float:left;
+}
+.nivo-controlNav a.active {
+	background-position:-10px 0;
+}
