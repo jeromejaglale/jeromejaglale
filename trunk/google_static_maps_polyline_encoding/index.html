@@ -7,33 +7,9 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
 <script type="text/javascript">
-// from http://code.google.com/apis/maps/documentation/utilities/include/polyline.js
+	/* from http://code.google.com/apis/maps/documentation/utilities/include/polyline.js */
 	
-	// Encode a signed number in the encode format.
-	function encodeSignedNumber(num) {
-	  var sgn_num = num << 1;
-
-	  if (num < 0) {
-	    sgn_num = ~(sgn_num);
-	  }
-
-	  return(encodeNumber(sgn_num));
-	}
-
-	// Encode an unsigned number in the encode format.
-	function encodeNumber(num) {
-	  var encodeString = "";
-
-	  while (num >= 0x20) {
-	    encodeString += (String.fromCharCode((0x20 | (num & 0x1f)) + 63));
-	    num >>= 5;
-	  }
-
-	  encodeString += (String.fromCharCode(num + 63));
-	  return encodeString;
-	}
-
-	// Create the encoded polyline
+	// coords format: [ [25.774252, -80.190262], [18.466465, -66.118292], [32.321384, -64.75737] ]
 	function createEncodings(coords) {
 		var i = 0;
 
@@ -46,19 +22,51 @@
 		    var lat = coords[i][0];				
 			var lng = coords[i][1];		
 
-			var late5 = Math.round(lat * 1e5);
-			var lnge5 = Math.round(lng * 1e5);
+			encoded_points += encodePoint(plat, plng, lat, lng);
 
-			dlat = late5 - plat;
-			dlng = lnge5 - plng;
-
-			plat = late5;
-			plng = lnge5;
-
-			encoded_points += encodeSignedNumber(dlat) + encodeSignedNumber(dlng);
+		    plat = lat;
+		    plng = lng;
 		}
-	
+
+		// close polyline
+		encoded_points += encodePoint(plat, plng, coords[0][0], coords[0][1]);
+
 		return encoded_points;
+	}
+	
+	function encodePoint(plat, plng, lat, lng) {
+		var late5 = Math.round(lat * 1e5);
+	    var plate5 = Math.round(plat * 1e5)    
+
+		var lnge5 = Math.round(lng * 1e5);
+	    var plnge5 = Math.round(plng * 1e5)
+
+		dlng = lnge5 - plnge5;
+		dlat = late5 - plate5;
+
+	    return encodeSignedNumber(dlat) + encodeSignedNumber(dlng);
+	}
+	
+	function encodeSignedNumber(num) {
+	  var sgn_num = num << 1;
+
+	  if (num < 0) {
+	    sgn_num = ~(sgn_num);
+	  }
+
+	  return(encodeNumber(sgn_num));
+	}
+
+	function encodeNumber(num) {
+	  var encodeString = "";
+
+	  while (num >= 0x20) {
+	    encodeString += (String.fromCharCode((0x20 | (num & 0x1f)) + 63));
+	    num >>= 5;
+	  }
+
+	  encodeString += (String.fromCharCode(num + 63));
+	  return encodeString;
 	}	
 </script>	
 	
@@ -79,7 +87,7 @@
 		document.getElementById("encoded").innerHTML = encoded;
 
 		// display static map using encoded polyline
-		var img_src = "http://maps.google.com/maps/api/staticmap?size=600x300&path=fillcolor:0xAA000033|color:0xFFFFFF00|enc:" + encoded + "&sensor=false";
+		var img_src = "http://maps.google.com/maps/api/staticmap?size=600x300&path=fillcolor:0xAA000033|color:0xFF0000FF|enc:" + encoded + "&sensor=false";
 
 		var result_html = '<pre>' + img_src + '</pre>';
 		result_html += '<img src="' + img_src + '"/>';
@@ -87,6 +95,7 @@
   }
 </script>
 </head>
+
 <body onload="initialize()">
 	<h1>Google Static Maps Polyline Encoding</h1>
 
