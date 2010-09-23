@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<title>IE 6 PNG Transparency</title>
+
+	<style type="text/css">
+		.test {
+			width: 800px;
+			height: 600px;
+			background-color: red;
+			background-repeat: no-repeat;
+			background-image: url('wave.png');
+		}
+	</style>
+
+	<script type="text/javascript" src="jquery.js"></script> 
+	<script type="text/javascript" src="jquery.supersleight.js"></script> 
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.test').supersleight({shim: 'transparent.gif'});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="test png">
+	</div>
+
+</body>
+
+</html>
+
