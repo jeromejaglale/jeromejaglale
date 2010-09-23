@@ -12,19 +12,30 @@
 			background-repeat: no-repeat;
 			background-image: url('wave.png');
 		}
+
+		.test2 {
+			width: 800px;
+			height: 600px;
+			background-color: yellow;
+			margin-top: 10px;
+		}
 	</style>
 
 	<script type="text/javascript" src="jquery.js"></script> 
 	<script type="text/javascript" src="jquery.supersleight.js"></script> 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.test').supersleight({shim: 'transparent.gif'});
+			$('.png').supersleight({shim: 'transparent.gif'});
 		});
 	</script>
 </head>
 
 <body>
 	<div class="test png">
+	</div>
+
+	<div class="test2">
+		<img class="png" src="wave.png" />
 	</div>
 
 </body>
