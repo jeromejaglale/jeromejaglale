@@ -14,7 +14,7 @@ for l in s.splitlines(True):
 	l3 = l.encode('utf-8', 'replace')
 	l3 = l3.strip()
 	if 'runs' in l3:
-		t = s.split('run')
+		t = s.split('runs')
 		print t[0]
 		break;
 	
