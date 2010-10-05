@@ -2,6 +2,7 @@
 
 import codecs
 
+path = '11:20:03@0'
 path = '10:14:04@0'
 
 s=""
@@ -10,26 +11,13 @@ for l in f:
 	s += l
 
 for l in s.splitlines(True):
-	l2 = l.encode('ascii', 'xmlcharrefreplace')
-	l2 = str(l2)
-#	for k in l2:
-#		pass
-#		#print ord(k)
-#	#l2 = l2[:6]
+	l3 = l.encode('utf-8', 'replace')
+	l3 = l3.strip()
+	if 'runs' in l3:
+		t = s.split('run')
+		print t[0]
+		break;
 	
-	# if font line, stop	
-	if l2.startswith('Lucida'):
-		print "stopped (Lucida)"
-		break
-		
-	# if weird line, stop
-	l22 = ''.join([str(ord(k)) for k in l2])
-	if l22.startswith('0383549544859038354954485903835495448590400102041'):
-		print "yes"
-		break
-	
-	l3 = l.encode('ascii', 'replace')
-	print l3
-
-
+	if l3 != '':
+		print l3
 
