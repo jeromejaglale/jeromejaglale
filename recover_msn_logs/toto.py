@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import codecs
 
-path = '10:14:04@0'
+path = sys.argv[1]
 
-s=""
 f = codecs.open(path, 'rU', encoding='latin1')
+s=""
 for l in f:
 	s += l
 
