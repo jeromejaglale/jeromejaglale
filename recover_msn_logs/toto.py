@@ -18,9 +18,8 @@ for l in s.splitlines(True):
 	
 	# first line
 	if i == 1:
-		t = l3.split('"')
-		print t[1].strip()
-		continue;
+		print l3[24:]
+		continue
 	
 	# last line
 	if 'runs' in l3:
