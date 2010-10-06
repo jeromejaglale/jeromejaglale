@@ -2,6 +2,8 @@
 
 import sys
 import codecs
+import re
+import os
 
 for path in sys.argv[1:]:
 	f = codecs.open(path, 'rU', encoding='latin1')
@@ -29,4 +31,15 @@ for path in sys.argv[1:]:
 		l3 = l3.strip()
 		if l3 != '':
 			print l3
-
+	
+	dirname = os.path.dirname(path)
+	filename = os.path.basename(path)
+	
+	reg = r'^(\d\d?)\D(\d\d?)\D(\d\d?)@.*' # matches 1:2:03@0 or 11:20:03@0
+	year = '20' + re.sub(reg, r'\3', filename)
+	month = re.sub(reg, r'\1', filename).zfill(2) 
+	day = re.sub(reg, r'\2', filename).zfill(2) 
+	
+	new_filename = year + '_' + month + '_' + day + '.txt'
+	new_path = os.path.join(dirname, new_filename)
+	print new_path
