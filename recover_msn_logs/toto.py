@@ -13,8 +13,7 @@ for l in f:
 i = 0
 for l in s.splitlines(True):
 	i += 1
-	l3 = l.encode('utf-8', 'replace')
-	l3 = l3.strip()
+	l3 = l.encode('utf-8', 'ignore')
 	
 	# first line
 	if i == 1:
@@ -28,6 +27,7 @@ for l in s.splitlines(True):
 		break;
 	
 	# normal line
+	l3 = l3.strip()
 	if l3 != '':
 		print l3
 
