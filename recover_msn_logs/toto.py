@@ -21,8 +21,9 @@ for l in s.splitlines(True):
 		continue
 	
 	# last line
-	if 'runs ' in l3:
-		t = l3.split('runs')
+	sep = 'runs' + chr(0)
+	if sep in l3:
+		t = l3.split(sep)
 		print t[0]
 		break;
 	
