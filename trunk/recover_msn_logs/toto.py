@@ -12,6 +12,7 @@ for path in sys.argv[1:]:
 		s += l
 
 	i = 0
+	output=""
 	for l in s.splitlines(True):
 		i += 1
 		l3 = l.encode('utf-8', 'ignore')
@@ -24,14 +25,16 @@ for path in sys.argv[1:]:
 		sep = 'runs' + chr(0)
 		if sep in l3:
 			t = l3.split(sep)
-			print t[0]
+			output += t[0]  + "\n"
 			break;
 	
 		# normal line
 		l3 = l3.strip()
 		if l3 != '':
-			print l3
+			#print l3
+			output += l3 + "\n"
 	
+	# write result to file
 	dirname = os.path.dirname(path)
 	filename = os.path.basename(path)
 	
@@ -42,4 +45,7 @@ for path in sys.argv[1:]:
 	
 	new_filename = year + '_' + month + '_' + day + '.txt'
 	new_path = os.path.join(dirname, new_filename)
-	print new_path
+	
+	f2 = open(new_path, 'w')
+	f2.write(output)
+	print "wrote into " + new_path
