@@ -7,13 +7,13 @@ import os
 
 for path in sys.argv[1:]:
 	f = codecs.open(path, 'rU', encoding='latin1')
-	s=""
+	s=u""
 	for l in f:
 		s += l
 	f.close()
 	
 	i = 0
-	output=""
+	output=u""
 	for l in s.splitlines(True):
 		i += 1
 		l3 = l
@@ -26,14 +26,14 @@ for path in sys.argv[1:]:
 		sep = 'runs' + chr(0)
 		if sep in l3:
 			t = l3.split(sep)
-			output += t[0]  + "\n"
+			output += t[0]  + u"\n"
 			break;
 	
 		# normal line
 		l3 = l3.strip()
 		if l3 != '':
 			#print l3
-			output += l3 + "\n"
+			output += l3 + u"\n"
 	
 	# write result to file
 	dirname = os.path.dirname(path)
@@ -47,8 +47,8 @@ for path in sys.argv[1:]:
 	new_filename = year + '_' + month + '_' + day + '.txt'
 	new_path = os.path.join(dirname, new_filename)
 		
-	print type(output)
-	f2 = codecs.open(new_path, 'w', encoding='utf-8-sig')
+	#print type(output)
+	f2 = codecs.open(new_path, 'w', encoding='utf-8')
 	f2.write(output)
 	f2.close()
 	print "wrote into " + new_path
