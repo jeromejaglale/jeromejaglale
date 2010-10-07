@@ -38,6 +38,9 @@ for path in sys.argv[1:]:
 	
 	# clean
 	output = output.replace(chr(0),'')
+
+	# add HTML line breaks
+	output = output.replace(u"\n", u'<br />\n')
 	
 	# add HTML wrapper
 	output = u"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -52,7 +55,6 @@ for path in sys.argv[1:]:
 </body>
 </html>
 """ % output
-
 	
 	# write result to file
 	dirname = os.path.dirname(path)
