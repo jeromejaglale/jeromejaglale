@@ -39,6 +39,21 @@ for path in sys.argv[1:]:
 	# clean
 	output = output.replace(chr(0),'')
 	
+	# add HTML wrapper
+	output = u"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+%s
+</body>
+</html>
+""" % output
+
+	
 	# write result to file
 	dirname = os.path.dirname(path)
 	filename = os.path.basename(path)
@@ -48,7 +63,7 @@ for path in sys.argv[1:]:
 	month = re.sub(reg, r'\1', filename).zfill(2) 
 	day = re.sub(reg, r'\2', filename).zfill(2) 
 	
-	new_filename = year + '_' + month + '_' + day + '.txt'
+	new_filename = year + '_' + month + '_' + day + '.html'
 	new_path = os.path.join(dirname, new_filename)
 
 	f2 = codecs.open(new_path, 'w', encoding='utf-8')
