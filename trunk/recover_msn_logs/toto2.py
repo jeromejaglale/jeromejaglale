@@ -6,8 +6,7 @@ import re
 import os
 
 for path in sys.argv[1:]:
-	print os.path.basename(path)
-	print "\n"
+	print "processing " + os.path.basename(path)
 
 	output = u''
 	f = open(path, 'rb')
@@ -20,8 +19,8 @@ for path in sys.argv[1:]:
 			pos = f.tell()
 			
 			# end of contents
-			if output.endswith(u'runs\x00\x00'):
-				output = output[:-6]
+			if output.endswith(u'runs\x00'):
+				output = output[:-5]
 				output += u"\n"
 				break
 					
@@ -75,6 +74,7 @@ for path in sys.argv[1:]:
 	e[':s'] = 'confused_smile.gif'
 	e[':-|'] = 'what_smile.gif'
 	e[':|'] = 'what_smile.gif'
+	e[":'("] = 'cry_smile.gif'
 	e[':-$'] = 'red_smile.gif'
 	e[':$'] = 'red_smile.gif'
 	e['(H)'] = 'shades_smile.gif'
@@ -83,6 +83,18 @@ for path in sys.argv[1:]:
 	e[':@'] = 'angry_smile.gif'
 	e['(A)'] = 'angel_smile.gif'
 	e['(a)'] = 'angel_smile.gif'
+	e['(6)'] = 'devil_smile.gif'
+	e[':-#'] = '47_47.gif'
+	e['8o|'] = '48_48.gif'
+	e['8-|'] = '49_49.gif'
+	e['^o)'] = '50_50.gif'
+	e[':-*'] = '51_51.gif'
+	e['+o('] = '52_52.gif'
+	e[':^)'] = '71_71.gif'
+	e['*-)'] = '72_72.gif'
+	e['<:o)'] = '74_74.gif'
+	e['8-)'] = '75_75.gif'
+	e['|-)'] = '77_77.gif'
 	e['(C)'] = 'coffee.gif'
 	e['(c)'] = 'coffee.gif'
 	e['(Y)'] = 'thumbs_up.gif'
@@ -97,8 +109,11 @@ for path in sys.argv[1:]:
 	e['(x)'] = 'girl.gif'
 	e['(Z)'] = 'guy.gif'
 	e['(z)'] = 'guy.gif'
+	e['({)'] = 'guy_hug.gif'
+	e['(})'] = 'girl_hug.gif'
 	e[':-['] = 'bat.gif'
 	e[':['] = 'bat.gif'
+	e['(^)'] = 'cake.gif'
 	e['(L)'] = 'heart.gif'
 	e['(l)'] = 'heart.gif'
 	e['(U)'] = 'broken_heart.gif'
@@ -113,17 +128,38 @@ for path in sys.argv[1:]:
 	e['(w)'] = 'wilted_rose.gif'
 	e['(P)'] = 'camera.gif'
 	e['(p)'] = 'camera.gif'
+	e['(~)'] = 'film.gif'
+	e['(@)'] = 'cat.gif'
+	e['(&)'] = 'dog.gif'
 	e['(T)'] = 'phone.gif'
 	e['(t)'] = 'phone.gif'
 	e['(I)'] = 'lightbulb.gif'
 	e['(i)'] = 'lightbulb.gif'
+	e['(8)'] = 'note.gif'
+	e['(S)'] = 'moon.gif'
+	e['(*)'] = 'star.gif'
 	e['(E)'] = 'envelope.gif'
 	e['(e)'] = 'envelope.gif'
 	e['(O)'] = 'clock.gif'
 	e['(o)'] = 'clock.gif'
 	e['(M)'] = 'messenger.gif'
 	e['(m)'] = 'messenger.gif'
-
+	e['(sn)'] = '53_53.gif'
+	e['(bah)'] = '70_70.gif'
+	e['(pl)'] = '55_55.gif'
+	e['(||)'] = '56_56.gif'
+	e['(pi)'] = '57_57.gif'
+	e['(so)'] = '58_58.gif'
+	e['(au)'] = '59_59.gif'
+	e['(ap)'] = '60_60.gif'
+	e['(um)'] = '61_61.gif'
+	e['(ip)'] = '62_62.gif'
+	e['(co)'] = '63_63.gif'
+	e['(mp)'] = '64_64.gif'
+	e['(st)'] = '66_66.gif'
+	e['(li)'] = '73_73.gif'
+	e['(mo)'] = '69_69.gif'
+	
 	for smiley in e:
 		url = base_url + e[smiley]
 		img = '<img src="' + url + '" />'
