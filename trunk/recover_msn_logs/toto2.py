@@ -56,6 +56,17 @@ for path in sys.argv[1:]:
 </html>
 """ % output
 	
+	# add emoticons
+	base_url = 'http://messenger.msn.com/Resource/emoticons/'
+	e = {}
+	e[':-)'] = 'regular_smile.gif'
+	e[':)'] = 'regular_smile.gif'
+	
+	for smiley in e:
+		url = base_url + e[smiley]
+		img = '<img src="' + url + '" />'
+		output = output.replace(smiley, img)
+	
 	# write result to file
 	dirname = os.path.dirname(path)
 	filename = os.path.basename(path)
