@@ -10,7 +10,19 @@ l = xmlTree.childNodes[0].getElementsByTagName("td")
 
 for e in l:
 	width = e.getAttribute("width")
+	
+	if width == '20':
+		continue
+	
 	if width == '25':
 		emoticon_name = e.getElementsByTagName("img")[0].getAttribute("src").split('/')[1]
+		continue
+		
+	nobr = e.getElementsByTagName("nobr")
+	if len(nobr) > 0:
+		span = nobr[0].getElementsByTagName("span")
+		for s in span:
+			smiley = "".join([n.nodeValue for n in s.childNodes])
+			print 	"e['" + smiley + "'] = '" + emoticon_name + "'"
 
 f.close()
