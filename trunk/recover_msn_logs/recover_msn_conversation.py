@@ -6,7 +6,7 @@ import re
 import os
 
 for path in sys.argv[1:]:
-	print "processing " + os.path.basename(path)
+	print "processing " + os.path.basename(path),
 
 	output = u''
 	f = open(path, 'rb')
@@ -15,9 +15,7 @@ for path in sys.argv[1:]:
 		f.seek(22)
 
 		byte = f.read(1)
-		while byte != "":
-			pos = f.tell()
-			
+		while byte != "":			
 			# end of contents
 			if output.endswith(u'runs\x00'):
 				output = output[:-5]
@@ -180,4 +178,5 @@ for path in sys.argv[1:]:
 	f2 = codecs.open(new_path, 'w', encoding='utf-8')
 	f2.write(output)
 	f2.close()
-
+	
+	print '-> ' + new_filename
