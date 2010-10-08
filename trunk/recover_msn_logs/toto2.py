@@ -61,6 +61,7 @@ for path in sys.argv[1:]:
 	e = {}
 	e[':-)'] = 'regular_smile.gif'
 	e[':)'] = 'regular_smile.gif'
+	e[''] = ''
 	
 	for smiley in e:
 		url = base_url + e[smiley]
