@@ -4,7 +4,7 @@
 // http://maestric.com/en/doc/php/codeigniter_i18n
 // version 6 - April 20, 2009
 
-class MY_Language extends CI_Language {
+class MY_Lang extends CI_Lang {
 
 	/**************************************************
 	 configuration
@@ -27,9 +27,9 @@ class MY_Language extends CI_Language {
 	/**************************************************/
 	
 	
-	function MY_Language()
+	function MY_Lang()
 	{
-		parent::CI_Language();		
+		parent::__construct();		
 		
 		global $CFG;
 		global $URI;
@@ -42,11 +42,6 @@ class MY_Language extends CI_Language {
 			$language = $this->languages[$segment];
 			$CFG->set_item('language', $language);
 
-			if ($RTR->scaffolding_request === TRUE)
-			{
-				// hide language segment for scaffolding code
-				$RTR->uri->segments = $RTR->uri->rsegments;
-			}
 		}
 		else if($this->is_special($segment)) // special URI -> no redirect
 		{
