@@ -1,8 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// CodeIgniter i18n library by Jérôme Jaglale
-// http://maestric.com/en/doc/php/codeigniter_i18n
-// version 6 - April 20, 2009
+// CodeIgniter i18n library - version 8
+// http://maestric.com/doc/php/codeigniter_i18n
 
 class MY_Lang extends CI_Lang {
 
@@ -165,7 +164,7 @@ class MY_Lang extends CI_Lang {
 	}
 	
 }
-// END MY_Language Class
+// END MY_Lang Class
 
-/* End of file MY_Language.php */
-/* Location: ./system/application/libraries/MY_Language.php */
+/* End of file MY_Lang.php */
+/* Location: ./application/core/MY_Lang.php */
