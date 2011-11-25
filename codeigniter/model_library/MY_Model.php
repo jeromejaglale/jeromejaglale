@@ -1,4 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+// http://maestric.com/doc/php/codeigniter_models
  
 class MY_Model extends CI_Model {
  
