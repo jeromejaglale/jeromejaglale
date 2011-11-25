@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  
-class MY_Model extends Model {
+class MY_Model extends CI_Model {
  
 	var $table = "";
  
-    function My_Model()
+	function __construct()
     {
-        parent::Model();
-	$this->load->database();
+        parent::__construct();
+		$this->load->database();
     }
  
 	function insert($data)
