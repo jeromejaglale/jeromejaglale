@@ -2,7 +2,7 @@
 
 // CodeIgniter i18n library by Jérôme Jaglale
 // http://maestric.com/en/doc/php/codeigniter_i18n
-// version 6 - April 20, 2009
+// version 9 - April 2, 2012
 
 class MY_Config extends CI_Config {
 
@@ -23,7 +23,5 @@ class MY_Config extends CI_Config {
 	}
 		
 }
-// END MY_Config Class
 
-/* End of file MY_Config.php */
-/* Location: ./system/application/libraries/MY_Config.php */
+/* End of file */

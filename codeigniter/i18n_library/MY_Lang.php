@@ -1,7 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// CodeIgniter i18n library - version 8
-// http://maestric.com/doc/php/codeigniter_i18n
+// CodeIgniter i18n library by Jérôme Jaglale
+// http://maestric.com/en/doc/php/codeigniter_i18n
+// version 9 - April 2, 2012
 
 class MY_Lang extends CI_Lang {
 
@@ -57,7 +58,6 @@ class MY_Lang extends CI_Lang {
 		}
 	}
 	
-	
 	// get current language
 	// ex: return 'en' if language in CI config is 'english' 
 	function lang()
@@ -74,7 +74,6 @@ class MY_Lang extends CI_Lang {
 		return NULL;	// this should not happen
 	}
 	
-	
 	function is_special($uri)
 	{
 		$exploded = explode('/', $uri);
@@ -88,7 +87,6 @@ class MY_Lang extends CI_Lang {
 		}
 		return FALSE;
 	}
-	
 	
 	function switch_uri($lang)
 	{
@@ -133,7 +131,6 @@ class MY_Lang extends CI_Lang {
 		return FALSE;
 	}
 	
-	
 	// default language: first element of $this->languages
 	function default_lang()
 	{
@@ -151,9 +148,9 @@ class MY_Lang extends CI_Lang {
 				|| preg_match('/(.+)\.[a-zA-Z0-9]{2,4}$/', $uri))
 		{
 			// we don't need a language segment because:
-			// - there's already one
-			// - or it's a special uri (set in $special)
-			// - or that's a link to a file
+			// - there's already one or
+			// - it's a special uri (set in $special) or
+			// - that's a link to a file
 		}
 		else
 		{
@@ -164,7 +161,5 @@ class MY_Lang extends CI_Lang {
 	}
 	
 }
-// END MY_Lang Class
 
-/* End of file MY_Lang.php */
-/* Location: ./application/core/MY_Lang.php */
+/* End of file */
