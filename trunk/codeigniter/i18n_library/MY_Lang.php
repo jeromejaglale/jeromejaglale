@@ -98,9 +98,9 @@ class MY_Lang extends CI_Lang {
 		if ($uri != "")
 		{
 			$exploded = explode('/', $uri);
-			if($exploded[1] == $this->lang())
+			if($exploded[0] == $this->lang())
 			{
-				$exploded[1] = $lang;
+				$exploded[0] = $lang;
 			}
 			$uri = implode('/',$exploded);
 		}
