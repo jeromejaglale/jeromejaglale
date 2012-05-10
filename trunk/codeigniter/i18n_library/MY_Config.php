@@ -13,7 +13,7 @@ class MY_Config extends CI_Config {
 			$uri = implode('/', $uri);
 		}
 		
-		if (function_exists('get_instance'))		
+		if (class_exists('CI_Controller'))
 		{
 			$CI =& get_instance();
 			$uri = $CI->lang->localized($uri);			
