@@ -5,6 +5,8 @@ import re
 KEY_PREFIX = 'admin.'
 KEY_MAX_LENGTH = 20
 
+props = {}
+
 def get_key(text):
     key = text.lower()
 
@@ -32,6 +34,19 @@ with open(path) as f:
 		l = re.sub('\${[^{}]+?}', '', l) # remove EL: ${...}
 		l = l.strip()
 		if l:
+			# if string is already in props
+			if(l in props.values()):
+				continue
 			print l
+			
 			key = get_key(l)
-			print key
+
+			# if key already exists
+			final_key = key
+			i = 2
+			while(final_key in props.keys()):
+				final_key = key + str(i)
+				i+=1
+			
+			print final_key
+			props[final_key] = l
