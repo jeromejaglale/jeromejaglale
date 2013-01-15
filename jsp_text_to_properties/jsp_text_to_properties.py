@@ -47,6 +47,8 @@ with open(path) as f:
 			while(final_key in props.keys()):
 				final_key = key + str(i)
 				i+=1
-			
+
 			print final_key
 			props[final_key] = l
+
+			print final_key + '=' + l
