@@ -37,7 +37,7 @@ with open(path) as f:
 			# if string is already in props
 			if(l in props.values()):
 				continue
-			print l
+			#print l
 			
 			key = get_key(l)
 
@@ -48,7 +48,7 @@ with open(path) as f:
 				final_key = key + str(i)
 				i+=1
 
-			print final_key
+			#print final_key
 			props[final_key] = l
 
 			print final_key + '=' + l
