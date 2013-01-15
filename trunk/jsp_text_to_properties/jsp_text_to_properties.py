@@ -53,12 +53,14 @@ with open(path) as f:
 	is_first_key = True
 	for l in f:
 		text = get_text(l)
-		#print text			
-		if text and not text in props.values():
-			key = get_key(text)
-			final_key = get_final_key(key, props)
-			props[final_key] = text
-			if is_first_key:
-				print "# " + os.path.basename(path)
-				is_first_key = False
-			print final_key + '=' + text
+		if text:
+			if text in props.values():
+				final_key = [k for k, v in props.iteritems() if v == text][0]
+			else:
+				key = get_key(text)
+				final_key = get_final_key(key, props)
+				props[final_key] = text
+				if is_first_key:
+					print "# " + os.path.basename(path)
+					is_first_key = False
+				print final_key + '=' + text
