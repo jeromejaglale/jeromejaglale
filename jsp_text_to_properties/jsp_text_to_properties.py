@@ -2,6 +2,7 @@
 
 # constants
 ##################################################
+MESSAGE_TAG = """<spring:message code="%s" />"""
 KEY_PREFIX = 'admin.'
 KEY_MAX_LENGTH = 20
 
@@ -42,6 +43,12 @@ def get_final_key(key, props):
 		i+=1
 	return final_key
 
+def get_new_line(l, text, key):
+	tag = MESSAGE_TAG % key
+	l_out = l.replace(text, tag)
+	return l_out
+
+
 # main
 ##################################################
 import re, os
@@ -50,6 +57,10 @@ props = {}
 
 path = '/home/jerome/projects/maestric/shared/jeromejaglale/jsp_text_to_properties/group-view.jsp'
 with open(path) as f:
+	# open tmp file
+	tmp_path = path + ".tmp"
+	f_out = open(tmp_path, "w")
+
 	is_first_key = True
 	for l in f:
 		text = get_text(l)
@@ -64,3 +75,10 @@ with open(path) as f:
 					print "# " + os.path.basename(path)
 					is_first_key = False
 				print final_key + '=' + text
+			l_out = get_new_line(l, text, final_key)
+			f_out.write(l_out)
+		else:
+			f_out.write(l)
+
+	f_out.close()
+	#os.rename(tmp_path, path)
