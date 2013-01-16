@@ -79,17 +79,26 @@ def process_file(path):
 		f_out.close()
 		#os.rename(tmp_path, path)
 
+def process_dir(path):
+	for dirpath, dirnames, filenames in os.walk(path):
+		for fname in filenames:
+			fext = os.path.splitext(fname)[1]
+			if fext != '' and fext in FILE_EXTENSIONS.split(','):
+				fpath = os.path.join(dirpath, fname)
+				process_file(fpath)
+
+def process_path(path):
+	if os.path.exists(path):
+		if(os.path.isdir(path)):
+			process_dir(path)
+		else:
+			process_file(path)
+
 # main
 ##################################################
-import re, os
+import sys, os, re
 
 props = {}
 
-#path = '/home/jerome/projects/maestric/shared/jeromejaglale/jsp_text_to_properties/group-view.jsp'
-dir_name = '/home/jerome/projects/maestric/shared/jeromejaglale/jsp_text_to_properties'
-for dirpath, dirnames, filenames in os.walk(dir_name):
-	for fname in filenames:
-		fext = os.path.splitext(fname)[1]
-		if fext != '' and fext in FILE_EXTENSIONS.split(','):
-			path = os.path.join(dirpath, fname)
-			process_file(path)
+for path in sys.argv[1:]:
+	process_path(path)
