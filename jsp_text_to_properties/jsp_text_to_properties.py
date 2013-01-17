@@ -48,7 +48,41 @@ def get_final_key(key, props):
 
 def get_new_line(l, text, key):
 	tag = MESSAGE_TAG % key
-	l_out = l.replace(text, tag)
+
+	#l = '<tiles:putAttribute name="<c:out title="title"/>">title</tiles:putAttribute><tiles:putAttribute name="title">title</tiles:putAttribute>'
+	#print l
+
+	# split l into list of tags and plain l: ['', '<h1>', 'a title', '</h1>']
+	str_parts = []
+	open_tags = 0
+	tmp_str=''
+	for char in l:
+		if char == '<':
+			if open_tags == 0:
+				str_parts.append(tmp_str)
+				tmp_str = ''
+			tmp_str += char
+			open_tags += 1
+		elif char == '>':
+			tmp_str += char
+			open_tags -= 1
+			if open_tags == 0:
+				str_parts.append(tmp_str)
+				tmp_str = ''
+		else:
+			tmp_str += char
+	#print str_parts
+
+	# do string replacement on plain l only
+	l_out = ''
+	for s in str_parts:
+	    if s and not s.startswith('<'):
+	    	s = s.replace(text, tag)
+	    l_out += s
+	#print l_out
+
+	l_out += "\n"
+	#l_out = l.replace(text, tag)
 	return l_out
 
 def process_file(path):
