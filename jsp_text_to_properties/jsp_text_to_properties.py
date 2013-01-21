@@ -11,45 +11,8 @@ FILE_EXTENSIONS = '.jsp,'
 
 # functions
 ##################################################
+# split string into list of tags and plain text: ['', '<h1>', 'a great title', '</h1>', '']
 def get_text(l):
-	#print l
-	l = re.sub('<[^<]+?>', '', l) # remove HTML/XML tags: <...>
-	l = re.sub('<[^<]+?>', '', l)
-	l = re.sub('\${[^{}]+?}', '', l) # remove EL: ${...}
-	l = l.strip()
-	return l
-
-def get_key(text):
-	key = text.lower()
-
-	# replace special chars by single space 
-	special_chars = """~`!@#$%^&*()-_+=|\{}[]"':;,.<>/?\t"""
-	for i in range(len(special_chars)):
-		key = key.replace(special_chars[i], " ")
-
-	# replace double spaces by single space
-	key = key.replace("  ", " ")
-	key = key.replace("  ", " ")    
-
-	key = key.strip()
-	key = key.replace(" ", "_")
-	key = key[:KEY_MAX_LENGTH]
-	key = key
-	return key
-
-# add prefix and number suffix to key
-def get_final_key(key, props):
-	final_key = KEY_PREFIX + key
-	i = 2
-	while(final_key in props.keys()):
-		final_key = KEY_PREFIX + key + str(i)
-		i+=1
-	return final_key
-
-def get_new_line(l, text, key):
-	tag = MESSAGE_TAG % key
-
-	# split l into list of tags and plain text: ['', '<h1>', 'a title', '</h1>', '']
 	str_parts = []
 	open_tags = 0
 	tmp_str=''
@@ -70,15 +33,42 @@ def get_new_line(l, text, key):
 			tmp_str += char
 	str_parts.append(tmp_str)
 
-	# do string replacement on plain text only
-	l_out = ''
-	for s in str_parts:
-	    if s and not s.startswith('<'):
-	    	s = s.replace(text, tag)
-	    l_out += s
+	return str_parts
 
-	return l_out
+# generate key from text: "a great title" -> a.great.title
+def get_key(text):
+	key = text.lower()
 
+	# replace special chars by single space 
+	special_chars = """~`!@#$%^&*()-_+=|\{}[]"':;,.<>/?\t"""
+	for i in range(len(special_chars)):
+		key = key.replace(special_chars[i], " ")
+
+	# replace double spaces by single space
+	key = key.replace("  ", " ")
+	key = key.replace("  ", " ")    
+
+	key = key.strip()
+	key = key.replace(" ", "_")
+	key = key[:KEY_MAX_LENGTH]
+	key = key
+	return key
+
+# add number suffix (if necessary to avoid duplication) and prefix to key: admin.a.great.title2
+def get_final_key(key, props):
+	final_key = KEY_PREFIX + key
+	i = 2
+	while(final_key in props.keys()):
+		final_key = KEY_PREFIX + key + str(i)
+		i+=1
+	return final_key
+
+# generate new line with text replaced by message tag: "<h1><spring:message code="admin.a.great.title2" /></h1>"
+def get_new_line(l, text, key):
+	tag = MESSAGE_TAG % key
+	return l.replace(text, tag)
+
+# process a file
 def process_file(path):
 	with open(path) as f:
 		# open tmp file
@@ -87,26 +77,29 @@ def process_file(path):
 
 		is_first_key = True
 		for l in f:
-			text = get_text(l)
-			if text:
-				if text in props.values():
-					final_key = [k for k, v in props.iteritems() if v == text][0]
+			l_parts = get_text(l)
+			l_out = ''
+			for text in l_parts:
+				text_strip = text.strip()
+				if text_strip and not text_strip.startswith('<'):
+					if text_strip in props.values():
+						final_key = [k for k, v in props.iteritems() if v == text_strip][0]
+					else:
+						key = get_key(text_strip)
+						final_key = get_final_key(key, props)
+						props[final_key] = text_strip
+						if is_first_key:
+							print "# " + os.path.basename(path)
+							is_first_key = False
+						print final_key + '=' + text_strip
+					l_out += get_new_line(text, text_strip, final_key)
 				else:
-					key = get_key(text)
-					final_key = get_final_key(key, props)
-					props[final_key] = text
-					if is_first_key:
-						print "# " + os.path.basename(path)
-						is_first_key = False
-					print final_key + '=' + text
-				l_out = get_new_line(l, text, final_key)
-				f_out.write(l_out)
-			else:
-				 f_out.write(l)
-
+					 l_out += text
+			f_out.write(l_out)
 		f_out.close()
 		#os.rename(tmp_path, path)
 
+# process a directory
 def process_dir(path):
 	for dirpath, dirnames, filenames in os.walk(path):
 		for fname in filenames:
