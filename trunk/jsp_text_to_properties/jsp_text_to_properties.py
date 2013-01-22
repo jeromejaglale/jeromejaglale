@@ -105,9 +105,9 @@ def process_line(l):
 					open_el = -1
 			else:
 				tmp_str += char
-	#tmp_str = process_text(tmp_str)
+	tmp_str = process_text(tmp_str)			
 	str_parts.append(tmp_str)
-	#print str_parts
+
 	return str_parts
 
 # process a file
