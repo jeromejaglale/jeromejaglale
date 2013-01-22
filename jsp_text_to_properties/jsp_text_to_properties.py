@@ -19,7 +19,7 @@ def get_text(l):
 	tmp_str=''
 	for i, char in enumerate(l):
 		if open_el == -1:
-			if char == '$' and open_tags == 0:
+			if char == '$':
 				if i+1 < len(l) and l[i+1] == '{':
 					str_parts.append(tmp_str)
 					tmp_str = ''
@@ -142,6 +142,6 @@ import sys, os, re
 
 props = {}
 
-#for path in sys.argv[1:]:
-#	process_path(path)
-print get_text("""${toto}<a href="${url}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>$""")
+for path in sys.argv[1:]:
+	process_path(path)
+#print get_text("""${toto}<a href="${url > 0 : 'aa' : 'bb'}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>$""")
