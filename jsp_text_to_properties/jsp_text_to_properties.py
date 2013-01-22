@@ -39,11 +39,12 @@ def get_final_key(key, props):
 		i+=1
 	return final_key
 
-# generate new line with text replaced by message tag: "<h1><spring:message code="admin.a.great.title2" /></h1>"
+# replace text replaced by message tag: "<spring:message code="admin.a.great.title2" />"
 def get_new_text(l, text, key):
 	tag = MESSAGE_TAG % key
 	return l.replace(text, tag)
 
+# process plain text
 def process_text(text):
 	text_strip = text.strip()
 	if text_strip:
@@ -53,15 +54,16 @@ def process_text(text):
 			key = get_key(text_strip)
 			final_key = get_final_key(key, props)
 			props[final_key] = text_strip
-			global is_first_key
-			if is_first_key:
+			global is_first_key_in_file
+			if is_first_key_in_file:
 				print "# " + os.path.basename(path)
-				is_first_key = False
+				is_first_key_in_file = False
 			print final_key + '=' + text_strip
 		return get_new_text(text, text_strip, final_key)
 	else:
 		 return text	
 
+# process a line
 def process_line(l):
 	str_parts = []
 	open_tags = 0
@@ -108,7 +110,7 @@ def process_line(l):
 	tmp_str = process_text(tmp_str)			
 	str_parts.append(tmp_str)
 
-	return str_parts
+	return "".join(str_parts)
 
 # process a file
 def process_file(path):
@@ -117,13 +119,10 @@ def process_file(path):
 		tmp_path = path + ".tmp"
 		f_out = open(tmp_path, "w")
 
-		global is_first_key
-		is_first_key = True
+		global is_first_key_in_file
+		is_first_key_in_file = True
 		for l in f:
-			l_parts = process_line(l)
-			l_out = ''
-			for text in l_parts:
-				l_out += text
+			l_out = process_line(l)
 			f_out.write(l_out)
 		f_out.close()
 		#os.rename(tmp_path, path)
@@ -149,7 +148,6 @@ def process_path(path):
 import sys, os, re
 
 props = {}
-is_first_key = True
 
 for path in sys.argv[1:]:
 	process_path(path)
