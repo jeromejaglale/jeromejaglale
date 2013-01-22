@@ -2,7 +2,7 @@
 
 # constants
 ##################################################
-MESSAGE_TAG = """<spring:message code="%s" />"""
+MESSAGE_TAG = """<spring:mess age code="%s" />"""
 
 KEY_PREFIX = 'admin.'
 KEY_MAX_LENGTH = 20
@@ -20,7 +20,7 @@ def get_text(l):
 	for i, char in enumerate(l):
 		if open_el == -1:
 			if char == '$' and open_tags == 0:
-				if l[i+1] == '{':
+				if i+1 < len(l) and l[i+1] == '{':
 					str_parts.append(tmp_str)
 					tmp_str = ''
 					open_el = 0
@@ -142,6 +142,6 @@ import sys, os, re
 
 props = {}
 
-for path in sys.argv[1:]:
-	process_path(path)
-#print get_text("""<a href="${url}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>""")
+#for path in sys.argv[1:]:
+#	process_path(path)
+print get_text("""${toto}<a href="${url}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>$""")
