@@ -11,51 +11,6 @@ FILE_EXTENSIONS = '.jsp,'
 
 # functions
 ##################################################
-# split string into list of tags and plain text: ['', '<h1>', 'a great title', '</h1>', '']
-def get_text(l):
-	str_parts = []
-	open_tags = 0
-	open_el = -1
-	tmp_str=''
-	for i, char in enumerate(l):
-		if open_el == -1:
-			if char == '$':
-				if i+1 < len(l) and l[i+1] == '{':
-					str_parts.append(tmp_str)
-					tmp_str = ''
-					open_el = 0
-				tmp_str += char
-			elif char == '<':
-				if open_tags == 0:
-					str_parts.append(tmp_str)
-					tmp_str = ''
-				tmp_str += char
-				open_tags += 1
-			elif char == '>':
-				tmp_str += char
-				open_tags -= 1
-				if open_tags == 0:
-					str_parts.append(tmp_str)
-					tmp_str = ''
-			else:
-				tmp_str += char
-		else:
-			if char == '{':
-				open_el += 1
-				tmp_str += char
-			elif char == '}':
-				open_el -= 1
-				tmp_str += char
-				if (open_el == 0):
-					str_parts.append(tmp_str)
-					tmp_str = ''
-					open_el = -1
-			else:
-				tmp_str += char
-	str_parts.append(tmp_str)
-
-	return str_parts
-
 # generate key from text: "a great title" -> a.great.title
 def get_key(text):
 	key = text.lower()
@@ -85,9 +40,75 @@ def get_final_key(key, props):
 	return final_key
 
 # generate new line with text replaced by message tag: "<h1><spring:message code="admin.a.great.title2" /></h1>"
-def get_new_line(l, text, key):
+def get_new_text(l, text, key):
 	tag = MESSAGE_TAG % key
 	return l.replace(text, tag)
+
+def process_text(text):
+	text_strip = text.strip()
+	if text_strip:
+		if text_strip in props.values():
+			final_key = [k for k, v in props.iteritems() if v == text_strip][0]
+		else:
+			key = get_key(text_strip)
+			final_key = get_final_key(key, props)
+			props[final_key] = text_strip
+			global is_first_key
+			if is_first_key:
+				print "# " + os.path.basename(path)
+				is_first_key = False
+			print final_key + '=' + text_strip
+		return get_new_text(text, text_strip, final_key)
+	else:
+		 return text	
+
+def process_line(l):
+	str_parts = []
+	open_tags = 0
+	open_el = -1
+	tmp_str=''
+	for i, char in enumerate(l):
+		if open_el == -1:
+			if char == '$':
+				if i+1 < len(l) and l[i+1] == '{':
+					if open_tags == 0:
+						tmp_str = process_text(tmp_str)
+					str_parts.append(tmp_str)
+					tmp_str = ''
+					open_el = 0
+				tmp_str += char
+			elif char == '<':
+				if open_tags == 0:
+					tmp_str = process_text(tmp_str)
+					str_parts.append(tmp_str)
+					tmp_str = ''
+				tmp_str += char
+				open_tags += 1
+			elif char == '>':
+				tmp_str += char
+				open_tags -= 1
+				if open_tags == 0:
+					str_parts.append(tmp_str)
+					tmp_str = ''
+			else:
+				tmp_str += char
+		else:
+			if char == '{':
+				open_el += 1
+				tmp_str += char
+			elif char == '}':
+				open_el -= 1
+				tmp_str += char
+				if (open_el == 0):
+					str_parts.append(tmp_str)
+					tmp_str = ''
+					open_el = -1
+			else:
+				tmp_str += char
+	#tmp_str = process_text(tmp_str)
+	str_parts.append(tmp_str)
+	#print str_parts
+	return str_parts
 
 # process a file
 def process_file(path):
@@ -96,26 +117,13 @@ def process_file(path):
 		tmp_path = path + ".tmp"
 		f_out = open(tmp_path, "w")
 
+		global is_first_key
 		is_first_key = True
 		for l in f:
-			l_parts = get_text(l)
+			l_parts = process_line(l)
 			l_out = ''
 			for text in l_parts:
-				text_strip = text.strip()
-				if text_strip and not text_strip.startswith('<') and not text_strip.startswith('${'):
-					if text_strip in props.values():
-						final_key = [k for k, v in props.iteritems() if v == text_strip][0]
-					else:
-						key = get_key(text_strip)
-						final_key = get_final_key(key, props)
-						props[final_key] = text_strip
-						if is_first_key:
-							print "# " + os.path.basename(path)
-							is_first_key = False
-						print final_key + '=' + text_strip
-					l_out += get_new_line(text, text_strip, final_key)
-				else:
-					 l_out += text
+				l_out += text
 			f_out.write(l_out)
 		f_out.close()
 		#os.rename(tmp_path, path)
@@ -141,7 +149,8 @@ def process_path(path):
 import sys, os, re
 
 props = {}
+is_first_key = True
 
 for path in sys.argv[1:]:
 	process_path(path)
-#print get_text("""${toto}<a href="${url > 0 : 'aa' : 'bb'}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>$""")
+#print process_line("""${toto}<a href="${url > 0 : 'aa' : 'bb'}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>$""")
