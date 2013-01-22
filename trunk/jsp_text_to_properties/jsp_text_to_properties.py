@@ -31,7 +31,8 @@ def get_key(text):
 	return key
 
 # add number suffix (if necessary to avoid duplication) and prefix to key: admin.a.great.title2
-def get_final_key(key, props):
+def get_final_key(key):
+	global props
 	final_key = KEY_PREFIX + key
 	i = 2
 	while(final_key in props.keys()):
@@ -46,13 +47,14 @@ def get_new_text(l, text, key):
 
 # process plain text
 def process_text(text):
+	global props
 	text_strip = text.strip()
 	if text_strip:
 		if text_strip in props.values():
 			final_key = [k for k, v in props.iteritems() if v == text_strip][0]
 		else:
 			key = get_key(text_strip)
-			final_key = get_final_key(key, props)
+			final_key = get_final_key(key)
 			props[final_key] = text_strip
 			global is_first_key_in_file
 			if is_first_key_in_file:
@@ -151,4 +153,6 @@ props = {}
 
 for path in sys.argv[1:]:
 	process_path(path)
+
+# a worst-case-scenario example
 #print process_line("""${toto}<a href="${url > 0 : 'aa' : 'bb'}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>$""")
