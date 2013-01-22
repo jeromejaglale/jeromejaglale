@@ -15,22 +15,43 @@ FILE_EXTENSIONS = '.jsp,'
 def get_text(l):
 	str_parts = []
 	open_tags = 0
+	open_el = -1
 	tmp_str=''
-	for char in l:
-		if char == '<':
-			if open_tags == 0:
-				str_parts.append(tmp_str)
-				tmp_str = ''
-			tmp_str += char
-			open_tags += 1
-		elif char == '>':
-			tmp_str += char
-			open_tags -= 1
-			if open_tags == 0:
-				str_parts.append(tmp_str)
-				tmp_str = ''
+	for i, char in enumerate(l):
+		if open_el == -1:
+			if char == '$' and open_tags == 0:
+				if l[i+1] == '{':
+					str_parts.append(tmp_str)
+					tmp_str = ''
+					open_el = 0
+				tmp_str += char
+			elif char == '<':
+				if open_tags == 0:
+					str_parts.append(tmp_str)
+					tmp_str = ''
+				tmp_str += char
+				open_tags += 1
+			elif char == '>':
+				tmp_str += char
+				open_tags -= 1
+				if open_tags == 0:
+					str_parts.append(tmp_str)
+					tmp_str = ''
+			else:
+				tmp_str += char
 		else:
-			tmp_str += char
+			if char == '{':
+				open_el += 1
+				tmp_str += char
+			elif char == '}':
+				open_el -= 1
+				tmp_str += char
+				if (open_el == 0):
+					str_parts.append(tmp_str)
+					tmp_str = ''
+					open_el = -1
+			else:
+				tmp_str += char
 	str_parts.append(tmp_str)
 
 	return str_parts
@@ -81,7 +102,7 @@ def process_file(path):
 			l_out = ''
 			for text in l_parts:
 				text_strip = text.strip()
-				if text_strip and not text_strip.startswith('<'):
+				if text_strip and not text_strip.startswith('<') and not text_strip.startswith('${'):
 					if text_strip in props.values():
 						final_key = [k for k, v in props.iteritems() if v == text_strip][0]
 					else:
@@ -123,3 +144,4 @@ props = {}
 
 for path in sys.argv[1:]:
 	process_path(path)
+#print get_text("""<a href="${url}">My name is ${x > 0 ? 'titi' : 'tata'}, is it not?</a>""")
