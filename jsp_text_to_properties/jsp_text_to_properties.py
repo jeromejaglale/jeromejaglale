@@ -2,7 +2,7 @@
 
 # constants
 ##################################################
-MESSAGE_TAG = """<spring:mess age code="%s" />"""
+MESSAGE_TAG = """<spring:message code="%s" />"""
 
 KEY_PREFIX = 'admin.'
 KEY_MAX_LENGTH = 20
@@ -35,7 +35,7 @@ def get_final_key(key):
 	global properties
 	final_key = KEY_PREFIX + key
 	i = 2
-	while(final_key in properties.keys()):
+	while(final_key in properties.keys() or final_key == KEY_PREFIX + ''):
 		final_key = KEY_PREFIX + key + str(i)
 		i+=1
 	return final_key
@@ -47,7 +47,7 @@ def get_new_text(l, text, key):
 
 # process plain text
 def process_text(text):
-	global properties
+	global properties, current_file_path
 	text_strip = text.strip()
 	if text_strip:
 		if text_strip in properties.values():
@@ -58,7 +58,7 @@ def process_text(text):
 			properties[final_key] = text_strip
 			global is_first_key_in_file
 			if is_first_key_in_file:
-				print "# " + os.path.basename(path)
+				print "# " + os.path.basename(current_file_path)
 				is_first_key_in_file = False
 			print final_key + '=' + text_strip
 		return get_new_text(text, text_strip, final_key)
@@ -116,6 +116,8 @@ def process_line(l):
 
 # process a file
 def process_file(path):
+	global current_file_path
+	current_file_path = path
 	with open(path) as f:
 		# open tmp file
 		tmp_path = path + ".tmp"
@@ -127,7 +129,7 @@ def process_file(path):
 			l_out = process_line(l)
 			f_out.write(l_out)
 		f_out.close()
-		#os.rename(tmp_path, path)
+		os.rename(tmp_path, path)
 
 # process a directory
 def process_dir(path):
@@ -150,6 +152,7 @@ def process_path(path):
 import sys, os, re
 
 properties = {}
+current_file_path = ''
 
 for path in sys.argv[1:]:
 	process_path(path)
