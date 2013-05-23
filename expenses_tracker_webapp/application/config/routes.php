@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "main";
+$route['cache.manifest'] = "manifest";
 $route['404_override'] = '';
 
 
