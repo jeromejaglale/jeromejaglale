@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="<?=base_url()?>css/main.css?v=1" />
 
 	<script src="<?=base_url()?>js/jquery.js"></script>
-	<script src="<?=base_url()?>js/main.js?v=1"></script>
+	<script src="<?=base_url()?>js/main.js?v=2"></script>
 </head>
 
 <body>
