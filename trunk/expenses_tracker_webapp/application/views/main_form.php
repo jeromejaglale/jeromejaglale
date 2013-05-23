@@ -21,9 +21,7 @@
 				Note<br />
 				<input type="text" name="note" id="note"/>
 		 	</p>
- 	</div>
-</fieldset>
-
+		 	<input type="submit" />
 	</form>
 </div>
 </body>
