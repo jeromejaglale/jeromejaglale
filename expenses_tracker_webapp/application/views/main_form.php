@@ -16,7 +16,7 @@
 
 <body>
 <div class="container">
-	<form method="post" action="">
+	<form method="post" action="<?=site_url('ajax/add_expense')?>">
 			<p>
 				Amount<br />
 				<input type="number" name="amount" id="amount"/>
