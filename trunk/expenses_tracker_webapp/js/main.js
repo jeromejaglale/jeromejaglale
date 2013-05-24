@@ -4,23 +4,35 @@ $(document).ready(function (){
 	var EXPENSE_LIST_KEY = 'expense_list';
 
 	$('form').submit(function(){
-		var expense_list = $.parseJSON(getFromSession(EXPENSE_LIST_KEY)),
+		var expense_list = [],
 			amount = $('#amount', $(this)).val(),
 			note = $('#note', $(this)).val(),
 			d = new Date(),
-			date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDay() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(),
+			date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(),
 			expense = {
 						'date' : date,
 						'amount' : amount,
 						'note' : note
 					},
-			expense_list_str = '';
 
+		// init expense list		
+		expense_list_str = getFromSession(EXPENSE_LIST_KEY);
+		if(expense_list_str !== undefined) {
+			expense_list = $.parseJSON(expense_list_str);
+		}
+		
+		// add new expense
 		expense_list.push(expense);
+
+		// convert to JSON
 		expense_list_str = JSON.stringify(expense_list);
+		
+		// save to session
 		saveInSession(EXPENSE_LIST_KEY, expense_list_str);	
 		
 		logSession();
+
+		// prevent actual form submission
 		return false;
 	});
 });
