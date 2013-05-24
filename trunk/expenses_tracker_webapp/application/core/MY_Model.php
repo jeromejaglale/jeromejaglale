@@ -31,6 +31,14 @@ class MY_Model extends CI_Model {
                 $result = $query->result_array();
                 return (count($result) > 0 ? $result[0] : NULL);
         }
+
+        function exists($date) {
+                $this->db->where('date', $date);
+                $query = $this->db->get($this->table);
+ 
+                $result = $query->result_array();
+                return (count($result) > 0 ? true : false);                
+        }
  
         function find_all($sort = 'id', $order = 'asc')
         {

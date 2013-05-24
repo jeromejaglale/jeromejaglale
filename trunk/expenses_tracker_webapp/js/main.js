@@ -32,6 +32,14 @@ $(document).ready(function (){
 		
 		logSession();
 
+		$.post($(this).attr('action'),
+			{ "expense_list_str": expense_list_str },
+			function(data){
+				l('ok');
+			},
+			"json"
+		);
+
 		// prevent actual form submission
 		return false;
 	});

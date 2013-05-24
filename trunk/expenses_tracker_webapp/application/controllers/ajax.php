@@ -6,11 +6,27 @@ class Ajax extends CI_Controller {
 	{
 		$this->load->model('expense');
  
-		$expense = array();
-		$expense['amount'] = '45';
-		$expense['note'] = 'James Ellroy';
-		 
-		$this->expense->insert($expense);
+ 		// get expenses
+ 		$expense_list_str = $this->input->post('expense_list_str');
+		$expense_list = json_decode($expense_list_str);
+
+
+		// for each expense
+		foreach ($expense_list as $expense) {
+
+			// stop here if expense with same date already exists in DB
+			if($this->expense->exists($expense->date)) {
+				continue;
+			}
+
+			// add to DB
+			$data = array();
+			$data['date'] = $expense->date;
+			$data['amount'] = $expense->amount;
+			$data['note'] = $expense->note;
+
+			$this->expense->insert($data);
+		}
 	}
 }
 
