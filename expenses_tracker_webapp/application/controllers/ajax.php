@@ -8,13 +8,18 @@ class Ajax extends CI_Controller {
  
  		// get expenses
  		$expense_list_str = $this->input->post('expense_list_str');
-		$expense_list = json_decode($expense_list_str);
 
+ 		// stop here if empty string
+ 		if ( ! $expense_list_str) {
+ 			return;
+ 		}
+
+		$expense_list = json_decode($expense_list_str);
 
 		// for each expense
 		foreach ($expense_list as $expense) {
 
-			// stop here if expense with same date already exists in DB
+			// ignore if expense with same date already exists in DB
 			if($this->expense->exists($expense->date)) {
 				continue;
 			}
