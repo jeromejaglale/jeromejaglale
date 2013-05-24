@@ -32,13 +32,17 @@ $(document).ready(function (){
 		
 		logSession();
 
-		$.post($(this).attr('action'),
-			{ "expense_list_str": expense_list_str },
-			function(data){
-				l('ok');
-			},
-			"json"
-		);
+		// if there's an internet connection
+		if(navigator.onLine) {
+			// send expenses to server
+			$.post($(this).attr('action'),
+				{"expense_list_str": expense_list_str},
+				function(data){
+					l('data saved');
+				},
+				"json"
+			);
+		}
 
 		// prevent actual form submission
 		return false;
