@@ -3,26 +3,81 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 
 <head>
-	<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Foundation 4</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Foundation</title>
 
-  
-  <link rel="stylesheet" href="css/foundation.css">
-  
+  <link rel="stylesheet" href="css/foundation.css" />
 
   <script src="js/vendor/custom.modernizr.js"></script>
 
 </head>
 <body>
 
+	<!-- top nav -->
 	<div class="row">
 		<div class="large-12 columns">
-			<h2>Welcome to Foundation</h2>
-			<p>This is version 4.3.1.</p>
-			<hr />
+	        <nav class="top-bar">
+	          <ul class="title-area">
+	            <li class="name">
+	            </li>
+	            <li class="toggle-topbar menu-icon">
+	            	<a href=""><span><!-- Menu --></span></a>
+	            </li>
+	          </ul>
+
+	          <section class="top-bar-section">
+	            <ul class="right">
+				  <li>
+				  	<a href="#">About</a>
+				  </li>
+				  <li>
+				    <a href="">Partners &amp; Contributors</a>
+				  </li>              
+				  <li>
+				    <a href="">Contact</a>
+				  </li>              
+	            </ul>
+	          </section>
+	        </nav>
 		</div>
 	</div>
+	
+	<!-- banner -->
+	<div class="row">
+		<div class="large-12 columns">
+			<img src="img/banner.jpg" alt=""/>
+		</div>
+	</div>
+
+	<!-- main nav -->
+	<div class="row">
+		<div class="large-12 columns">
+			<nav class="top-bar">
+				<ul class="title-area">
+	            <li class="name">
+	            </li>
+				<li class="toggle-topbar menu-icon"><a href=""><span><!-- Menu --></span></a></li>
+				</ul>
+
+				<section class="top-bar-section">
+
+				<ul class="left">
+				  <li>
+				  	<a href="#">Home</a>
+				  </li>
+				  <li>
+				    <a href="">Participate</a>
+				  </li>              
+				  <li>
+				    <a href="">Search</a>
+				  </li>              
+				</ul>
+				</section>
+			</nav>
+		</div>
+	</div>
+
 
 	<div class="row">
 		<div class="large-8 columns">
@@ -38,14 +93,10 @@
 			</div>
 			<div class="row">
 				<div class="large-6 columns">
-					<div class="panel">
-						<p>Six columns</p>
-					</div>
+						<p style="background-color: red" class="panel">Six columns 2</p>
 				</div>
 				<div class="large-6 columns">
-					<div class="panel">
 						<p>Six columns</p>
-					</div>
 				</div>
 			</div>
 			<div class="row">
