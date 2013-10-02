@@ -8,6 +8,7 @@
   <title>Foundation</title>
 
   <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/main.css" />
 
   <script src="js/vendor/custom.modernizr.js"></script>
 </head>
@@ -19,7 +20,7 @@
 			<!-- banner -->
 			<img src="img/banner.jpg" alt=""/>
 
-			<!-- main nav -->
+			<!-- footer nav -->
 			<nav class="top-bar">
 
 				<ul class="title-area">
@@ -147,36 +148,24 @@
 			</div>
 		</div>
 
-		<!-- bottom nav -->
-		<div class="row">
-			<div class="large-12 columns">
-
-				<nav class="top-bar">
-					<ul class="title-area">
-						<li class="name"></li>
-						<li class="toggle-topbar menu-icon">
-							<a href=""><span><!-- Menu --></span></a>
+		<!-- footer -->
+		<footer>
+			<div class="row">
+				<div class="large-12 columns">
+					<ul class="no-bullet nav2">
+						<li>
+							<a href="#">About</a>
 						</li>
+						<li>
+							<a href="">Partners &amp; Contributors</a>
+						</li>              
+						<li>
+							<a href="">Contact</a>
+						</li>              
 					</ul>
-
-					<section class="top-bar-section">
-						<ul class="right">
-							<li>
-								<a href="#">About</a>
-							</li>
-							<li>
-								<a href="">Partners &amp; Contributors</a>
-							</li>              
-							<li>
-								<a href="">Contact</a>
-							</li>              
-						</ul>
-					</section>
-				
-				</nav>
-
+				</div>
 			</div>
-		</div>
+		</footer>
 
 		<script>
 		document.write('<script src=' +
